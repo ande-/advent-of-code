@@ -1,29 +1,27 @@
-
-///part 2
-// this took me so long because i was trying to sort it myself, finally i used the sort function
 const rules = [[47, 53], [97, 13], [97, 61], [97, 47], [75, 29], [61, 13], [75, 53], [29, 13], [97, 29], [53, 29], [61, 53], [97, 53], [61, 29], [47, 13], [75, 47], [97, 75], [47, 61], [75, 61], [47, 29], [75, 13], [53, 13]];
 
-const updates = [[75, 47, 61, 53, 29],
-[97, 61, 53, 29, 13],
-[75, 29, 13],
-[75, 97, 47, 61, 53],
-[61, 13, 29],
-[97, 13, 75, 29, 47]];
+const updates = [
+  [75, 47, 61, 53, 29],
+  [97, 61, 53, 29, 13],
+  [75, 29, 13],
+  [75, 97, 47, 61, 53],
+  [61, 13, 29],
+  [97, 13, 75, 29, 47]];
 
 function getIncorrect(updates, rules) {
-  var incorrectCount = 0;
-  var incorrect = [];
-  for (var u = 0; u < updates.length; u++) {
-    var update = updates[u];
-    var isValid = true;
-    for (var i = 0; i < update.length; i++) {
-      var page = update[i];
-      for (var r = 0; r < rules.length; r++) {
-        var rule = rules[r];
+  let incorrectCount = 0;
+  let incorrect = [];
+  for (let u = 0; u < updates.length; u++) {
+    let update = updates[u];
+    let isValid = true;
+    for (let i = 0; i < update.length; i++) {
+      let page = update[i];
+      for (let r = 0; r < rules.length; r++) {
+        let rule = rules[r];
         if (page === rule[0]) {
           // is on left side of rule
-          var rightSide = rule[1];
-          var iRightSide = update.indexOf(rightSide);
+          let rightSide = rule[1];
+          let iRightSide = update.indexOf(rightSide);
           if (iRightSide >= 0 && iRightSide < i) {
             isValid = false;
             break; // invalid
@@ -44,12 +42,12 @@ function getIncorrect(updates, rules) {
 }
 
 function correctUpdates(updates, rules) {
-  var middleSum = 0;
-  for (var u = 0; u < updates.length; u++) {
-    var update = updates[u];
-    var corrected = correct(update, rules);
-    var m = Math.floor(corrected.length / 2);
-    var middle = corrected[m];
+  let middleSum = 0;
+  for (let u = 0; u < updates.length; u++) {
+    let update = updates[u];
+    let corrected = correct(update, rules);
+    let m = Math.floor(corrected.length / 2);
+    let middle = corrected[m];
     middleSum += middle;
   }
   return middleSum;
@@ -58,12 +56,12 @@ function correctUpdates(updates, rules) {
 
 function correct(update, rules) {
   update.sort((a, b) => {
-    var applicableRule;
+    let applicableRule;
 
-    for (var r = 0; r < rules.length; r++) {
-      var rule = rules[r];
-      var ruleLeft = rule[0];
-      var ruleRight = rule[1];
+    for (let r = 0; r < rules.length; r++) {
+      let rule = rules[r];
+      let ruleLeft = rule[0];
+      let ruleRight = rule[1];
 
       if ((ruleRight === a && ruleLeft === b) || (ruleLeft === a && ruleRight === b)) {
         applicableRule = rule;
@@ -75,8 +73,8 @@ function correct(update, rules) {
       return 0;
     }
 
-    var applicableRuleLeft = rule[0];
-    var applicableRuleRight = rule[1];
+    let applicableRuleLeft = applicableRule[0];
+    let applicableRuleRight = applicableRule[1];
 
     if (applicableRuleLeft === a && applicableRuleRight === b) {
       return -1
@@ -96,6 +94,4 @@ function solve(updates, rules) {
   return correctUpdates(incorrect, rules);
 }
 
-
-const res = solve(updates, rules);
-console.log("===== " + res + " =====");
+console.log(solve(updates, rules));

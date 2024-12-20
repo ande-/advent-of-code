@@ -2,14 +2,11 @@
 So first i would have to even know when they're in a loop
 maybe, if they turn all four directions without hitting any new "."? 
 that sounds good 
-*/
 
-/*
 But then how do i know where to place the obstructions? 
 Should i just try every single spot lol.
 literally i have no other ideas 
 */
-
 
 const input = [
   [".", ".", ".", ".", "#", ".", ".", ".", ".", ".",],
@@ -25,16 +22,15 @@ const input = [
 
 
 function solve(input) {
-  var { x, y, xdirection, ydirection } = findGuard(input);
+  let { x, y, xdirection, ydirection } = findGuard(input);
   input[y][x] = "X";
-  console.log("starting x: " + x + ", y: " + y + ", xdirection: " + xdirection + ", ydirection: " + ydirection);
 
-  var count = 0;
-  for (var i = 0; i < input.length; i++) {
-    for (var j = 0; j < input[0].length; j++) {
-      var inputCopy = copyInput(input);
+  let count = 0;
+  for (let i = 0; i < input.length; i++) {
+    for (let j = 0; j < input[0].length; j++) {
+      let inputCopy = copyInput(input);
 
-      var loopLegs = {
+      let loopLegs = {
         up: false,
         right: false,
         down: false,
@@ -42,8 +38,7 @@ function solve(input) {
       };
 
       inputCopy[i][j] = "#";
-      //console.log("trying blockade at " + i + "," + j);
-      var looped = tryBlockade(inputCopy, x, y, xdirection, ydirection, loopLegs, count);
+      let looped = tryBlockade(inputCopy, x, y, xdirection, ydirection, loopLegs, count);
       if (looped) {
         count++;
       }
@@ -53,8 +48,8 @@ function solve(input) {
 }
 
 function copyInput(input) {
-  var newArray = [];
-  for (var i = 0; i < input.length; i++) {
+  let newArray = [];
+  for (let i = 0; i < input.length; i++) {
     newArray[i] = input[i].slice();
   }
   return newArray;
@@ -65,24 +60,20 @@ function tryBlockade(input, x, y, xdirection, ydirection, loopLegs) {
 }
 
 function move(input, x, y, xdirection, ydirection, loopLegs) {
-  //console.log(loopLegs);
   if (x < 0 || y < 0 || x >= input[0].length || y >= input.length) {
-    //console.log("done: x: " + x + ", y: " + y + ", xdirection: " + xdirection + ", ydirection: " + ydirection);
     return false;
   }
 
   if (loopLegs.up && loopLegs.right && loopLegs.down && loopLegs.left) {
-    //console.log("in a loop");
+    // in a loop
     return true;
   }
 
-  var spot = input[y][x];
-
-  // console.log(spot + " x: " + x + ", y: " + y);
+  let spot = input[y][x];
 
   if (spot === "." || spot === "X") {
     if (spot === ".") {
-      //console.log("resetting");
+      // resetting
       loopLegs = {
         up: false,
         right: false,
@@ -121,9 +112,9 @@ function move(input, x, y, xdirection, ydirection, loopLegs) {
 }
 
 function findGuard(input) {
-  for (var i = 0; i < input.length; i++) {
-    for (var j = 0; j < input[0].length; j++) {
-      var spot = input[i][j];
+  for (let i = 0; i < input.length; i++) {
+    for (let j = 0; j < input[0].length; j++) {
+      let spot = input[i][j];
       if (spot === "^") {
         return { x: j, y: i, xdirection: 0, ydirection: -1 };
       } else if (spot === ">") {
@@ -137,5 +128,4 @@ function findGuard(input) {
   }
 }
 
-const res = solve(input);
-console.log("==== " + res + " ====");
+console.log(solve(input));

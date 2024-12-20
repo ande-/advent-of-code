@@ -1,4 +1,3 @@
-
 const input0 = [
   ["B", "C", "D"],
   ["B", "C", "C"],
@@ -43,7 +42,6 @@ const inputSample = [
   ["M", "I", "I", "I", "I", "I", "J", "J", "E", "E"],
   ["M", "I", "I", "I", "S", "I", "J", "E", "E", "E"],
   ["M", "M", "M", "I", "S", "S", "J", "E", "E", "E"]];
-
 
 
 /*********
@@ -109,11 +107,11 @@ function checkIfEdge(plant, i, j, input) {
 }
 
 function enlarge(input) {
-  var enlarged = [];
-  for (var i = 0; i < input.length; i++) {
+  let enlarged = [];
+  for (let i = 0; i < input.length; i++) {
     enlarged.push([]);
     enlarged.push([]);
-    for (var j = 0; j < input[i].length; j++) {
+    for (let j = 0; j < input[i].length; j++) {
       enlarged[i * 2].push(input[i][j]);
       enlarged[i * 2].push(input[i][j]);
       enlarged[i * 2 + 1].push(input[i][j]);
@@ -128,15 +126,15 @@ function freshMatrix(ilen, jlen) {
 }
 
 function buildLetterMatrices(input) {
-  var letterMatrices = {};
-  for (var i = 0; i < input.length; i++) {
-    for (var j = 0; j < input[i].length; j++) {
-      var plant = input[i][j];
+  let letterMatrices = {};
+  for (let i = 0; i < input.length; i++) {
+    for (let j = 0; j < input[i].length; j++) {
+      let plant = input[i][j];
       if (!letterMatrices[plant]) {
         // this is a waste of space but I want to be able to pretty-print the outlines
         letterMatrices[plant] = freshMatrix(input.length, input[i].length);
       }
-      var isEdge = checkIfEdge(plant, i, j, input);
+      let isEdge = checkIfEdge(plant, i, j, input);
       if (isEdge) {
         letterMatrices[plant][i][j] = plant;
       }
@@ -165,8 +163,8 @@ function getNewDirection(xdir, ydir) {
 }
 
 function findStart(matrix, letter) {
-  for (var i = 0; i < matrix.length; i++) {
-    for (var j = 0; j < matrix[i].length; j++) {
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
       if (matrix[i][j] === letter) {
         return { x: j, y: i };
       }
@@ -175,8 +173,8 @@ function findStart(matrix, letter) {
 }
 
 function traverse(matrix, letter, x, y, xdir, ydir, stats, startx, starty) {
-  var potentialx = x + xdir;
-  var potentialy = y + ydir;
+  let potentialx = x + xdir;
+  let potentialy = y + ydir;
 
   // if invalid, change direction
   // right
@@ -253,10 +251,10 @@ function traverse(matrix, letter, x, y, xdir, ydir, stats, startx, starty) {
 }
 
 function logMatrices(matrices) {
-  for (var key of Object.keys(matrices)) {
-    var matrix = matrices[key];
+  for (let key of Object.keys(matrices)) {
+    let matrix = matrices[key];
     console.log(" ");
-    for (var i = 0; i < matrix.length; i++) {
+    for (let i = 0; i < matrix.length; i++) {
       console.log(matrix[i].join(""));
     }
   }
@@ -268,8 +266,8 @@ function logMatrices(matrices) {
 *********/
 
 function copyInput(input) {
-  var newArray = [];
-  for (var i = 0; i < input.length; i++) {
+  let newArray = [];
+  for (let i = 0; i < input.length; i++) {
     newArray[i] = input[i].slice();
   }
   return newArray;
@@ -280,7 +278,7 @@ function check(input, x, y, targetPlant, stats) {
     return;
   }
 
-  var plant = input[y][x];
+  let plant = input[y][x];
   if (plant !== targetPlant) {
     return;
   }
@@ -296,9 +294,9 @@ function check(input, x, y, targetPlant, stats) {
 
 
 function getArea(input, i, j) {
-  var ic = copyInput(input);
-  var plant = ic[i][j];
-  var stats = { area: 0 };
+  let ic = copyInput(input);
+  let plant = ic[i][j];
+  let stats = { area: 0 };
   if (plant !== ".") {
     check(ic, j, i, plant, stats);
     // console.log(`done with area for ${plant}. Area: ${stats.area}`);
@@ -311,27 +309,27 @@ function getArea(input, i, j) {
 **********/
 
 function solve(input) {
-  var lgInput = enlarge(input);
-  var lgInput = enlarge(lgInput);
-  var matrices = buildLetterMatrices(lgInput);
+  let lgInput = enlarge(input);
+  lgInput = enlarge(lgInput);
+  let matrices = buildLetterMatrices(lgInput);
   // logMatrices(matrices);
 
-  var total = 0;
+  let total = 0;
 
-  for (var key of Object.keys(matrices)) {
-    var matrix = matrices[key];
-    var start = findStart(matrix, key);
+  for (let key of Object.keys(matrices)) {
+    let matrix = matrices[key];
+    let start = findStart(matrix, key);
     while (start) {
-      var oldX = Math.floor(start.x / 4);
-      var oldY = Math.floor(start.y / 4);
-      var area = getArea(input, oldY, oldX);
+      let oldX = Math.floor(start.x / 4);
+      let oldY = Math.floor(start.y / 4);
+      let area = getArea(input, oldY, oldX);
 
-      var stats = { edges: 1 };
+      let stats = { edges: 1 };
       traverse(matrix, key, start.x, start.y, 1, 0, stats, start.x, start.y);
       // console.log(`==== ${key} edges: ${stats.edges}, area: ${area}`);
       matrix[start.y][start.x] = "";
       start = findStart(matrix, key);
-      var patch = (stats.edges * area);
+      let patch = (stats.edges * area);
       // console.log(`patch: ${patch}`);
       total += patch;
 

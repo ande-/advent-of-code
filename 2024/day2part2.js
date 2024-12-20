@@ -1,8 +1,16 @@
+const input = [
+  [7, 6, 4, 2, 1],
+  [1, 2, 7, 8, 9],
+  [9, 7, 6, 2, 1],
+  [1, 3, 2, 4, 5],
+  [8, 6, 4, 4, 1],
+  [1, 3, 6, 7, 9]];
+
 function solve(reports) {
-  var safeCount = 0;
-  for (var i = 0; i < reports.length; i++) {
-    var report = reports[i];
-    var safe = checkSafetyWithDampener(report);
+  let safeCount = 0;
+  for (let i = 0; i < reports.length; i++) {
+    let report = reports[i];
+    let safe = checkSafetyWithDampener(report);
     if (safe) {
       safeCount++;
     }
@@ -15,8 +23,8 @@ function checkSafetyWithDampener(report) {
     return true;
   }
 
-  for (var i = 0; i < report.length; i++) {
-    var dampeningReport = [...report];
+  for (let i = 0; i < report.length; i++) {
+    let dampeningReport = [...report];
     dampeningReport.splice(i, 1);
 
     if (checkSafety(dampeningReport)) {
@@ -28,10 +36,10 @@ function checkSafetyWithDampener(report) {
 }
 
 function checkSafety(report) {
-  var direction = "";
-  for (var i = 0; i < report.length - 1; i++) {
-    var current = report[i];
-    var next = report[i + 1];
+  let direction = "";
+  for (let i = 0; i < report.length - 1; i++) {
+    let current = report[i];
+    let next = report[i + 1];
 
     if (direction === "") {
       if (next > current) {
@@ -53,3 +61,5 @@ function checkSafety(report) {
   }
   return true;
 }
+
+console.log(solve(input));

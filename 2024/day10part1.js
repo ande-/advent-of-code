@@ -8,16 +8,18 @@ const input = [
   [0, 1, 3, 2, 9, 8, 0, 1],
   [1, 0, 4, 5, 6, 7, 3, 2]];
 
-// iterate through and find the first 0.
-// check up, down, left, and right for 0 + 1
-// repeat
-// if 9, add to count for that 0
+/*
+ iterate through and find the first 0.
+ check up, down, left, and right for 0 + 1
+ repeat
+ if 9, add to count for that 0
+*/
 
 function findTrailheads(input) { // just do this separately to keep it readable
-  var trailheads = [];
-  for (var i = 0; i < input.length; i++) {
-    for (var j = 0; j < input[i].length; j++) {
-      var spot = input[i][j];
+  let trailheads = [];
+  for (let i = 0; i < input.length; i++) {
+    for (let j = 0; j < input[i].length; j++) {
+      let spot = input[i][j];
       if (spot === 0) {
         trailheads.push({ x: j, y: i });
       }
@@ -35,7 +37,7 @@ function check(input, x, y, targetHeight, summits) {
   if (input[y][x] === targetHeight) {
 
     if (targetHeight === 9) {
-      // console.log("got one!");
+      // got one!
       const found = summits.find((s) => s.x == x && s.y === y);
       if (!found) {
         summits.push({ x: x, y: y });
@@ -53,16 +55,15 @@ function check(input, x, y, targetHeight, summits) {
 }
 
 function solve(input) {
-  var total = 0;
-  var trailheads = findTrailheads(input);
-  for (var t = 0; t < trailheads.length; t++) {
-    var targetHeight = 0;
-    var summits = [];
-    var trailhead = trailheads[t];
+  let total = 0;
+  let trailheads = findTrailheads(input);
+  for (let t = 0; t < trailheads.length; t++) {
+    let targetHeight = 0;
+    let summits = [];
+    let trailhead = trailheads[t];
     check(input, trailhead.x, trailhead.y, targetHeight, summits);
-    var score = summits.length;
+    let score = summits.length;
     total += score;
-    console.log(score);
   }
   return total;
 }

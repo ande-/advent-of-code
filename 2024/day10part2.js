@@ -1,4 +1,3 @@
-// so this time it IS the number of paths to a 9
 const input = [
   [8, 9, 0, 1, 0, 1, 2, 3],
   [7, 8, 1, 2, 1, 8, 7, 4],
@@ -11,10 +10,10 @@ const input = [
 
 
 function findTrailheads(input) { // just do this separately to keep it readable
-  var trailheads = [];
-  for (var i = 0; i < input.length; i++) {
-    for (var j = 0; j < input[i].length; j++) {
-      var spot = input[i][j];
+  let trailheads = [];
+  for (let i = 0; i < input.length; i++) {
+    for (let j = 0; j < input[i].length; j++) {
+      let spot = input[i][j];
       if (spot === 0) {
         trailheads.push({ x: j, y: i });
       }
@@ -32,7 +31,7 @@ function check(input, x, y, targetHeight, summits) {
   if (input[y][x] === targetHeight) {
 
     if (targetHeight === 9) {
-      // console.log("got one!");
+      // got one!
       summits.push({ x: x, y: y });
       return;
     }
@@ -47,16 +46,15 @@ function check(input, x, y, targetHeight, summits) {
 }
 
 function solve(input) {
-  var total = 0;
-  var trailheads = findTrailheads(input);
-  for (var t = 0; t < trailheads.length; t++) {
-    var targetHeight = 0;
-    var summits = [];
-    var trailhead = trailheads[t];
+  let total = 0;
+  let trailheads = findTrailheads(input);
+  for (let t = 0; t < trailheads.length; t++) {
+    let targetHeight = 0;
+    let summits = [];
+    let trailhead = trailheads[t];
     check(input, trailhead.x, trailhead.y, targetHeight, summits);
-    var score = summits.length;
+    let score = summits.length;
     total += score;
-    // console.log(score);
   }
   return total;
 }

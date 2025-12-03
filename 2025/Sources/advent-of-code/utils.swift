@@ -31,4 +31,15 @@ extension String {
         return String(character)
     }
     
+    func substring(_ from: Int, to: Int) -> String {
+        guard let fromIndex = self.index(self.startIndex, offsetBy: from, limitedBy: self.endIndex) else { fatalError("invalid string index") }
+        
+        guard let toIndex = self.index(self.startIndex, offsetBy: to, limitedBy: self.endIndex) else {
+            fatalError("invalid string index")
+        }
+        
+        let sub = self[fromIndex..<toIndex]
+        return String(sub)
+    }
+    
 }

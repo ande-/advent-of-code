@@ -36,12 +36,16 @@ struct advent_of_code {
                 day7part1()
             case "day7part2":
                 day7part2()
+            case "day8part1":
+                day8part1()
+            case "day8part2":
+                day8part2()
             default:
                 break;
             }
         } else {
             // whichever problem I'm debugging from Xcode
-            day4part2()
+            
         }
     }
 }

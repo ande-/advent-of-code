@@ -43,3 +43,10 @@ extension String {
     }
     
 }
+
+extension Array where Element : Equatable {
+    func slice(_ from: Int, to: Int) -> [Element] {
+        let sub = self[from..<to]
+        return Array(sub)
+    }
+}

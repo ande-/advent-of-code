@@ -40,6 +40,10 @@ struct advent_of_code {
                 day8part1()
             case "day8part2":
                 day8part2()
+            case "day9part1":
+                day9part1()
+            case "day9part2":
+                day9part2()
             default:
                 break;
             }

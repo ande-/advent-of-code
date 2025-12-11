@@ -5,11 +5,6 @@
 //  Created by Andrea Houg on 12/7/25.
 //
 
-struct Point: Hashable {
-    var y: Int
-    var x: Int
-}
-
 private func readData() -> [[Character]] {
     let lines: [String] = readFile("day7/input.txt")
     return lines.map { Array($0) }
@@ -31,7 +26,7 @@ private func step(y: Int, x: Int, input: [[Character]], cache: inout Dictionary<
     }
     
     let nextValue = input[y+1][x]
-    let nextPoint = Point(y: y, x: x)
+    let nextPoint = Point(x: x, y: y)
 
     if (nextValue == "^") {
         if let paths = cache[nextPoint]  {

@@ -49,4 +49,14 @@ extension Array where Element : Equatable {
         let sub = self[from..<to]
         return Array(sub)
     }
+    
+    func uniqued() -> [Element] {
+        var new: [Element] = []
+        for item in self {
+            if !new.contains(item) {
+                new.append(item)
+            }
+        }
+        return new
+    }
 }
